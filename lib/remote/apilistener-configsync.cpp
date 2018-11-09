@@ -77,13 +77,14 @@ Value ApiListener::ConfigUpdateObjectAPIHandler(const MessageOrigin::Ptr& origin
 	}
 
 	/* discard messages if the sender is in a child zone */
+        /* OVERRIDE: allow messages from satellites
 	if (!Zone::GetLocalZone()->IsChildOf(endpoint->GetZone())) {
 		Log(LogNotice, "ApiListener")
 			<< "Discarding 'config update object' message from '"
 			<< origin->FromClient->GetIdentity() << "' for object '"
 			<< objName << "' of type '" << objType << "'. Sender is in a child zone.";
 		return Empty;
-	}
+	} */
 
 	/* ignore messages if the endpoint does not accept config */
 	if (!listener->GetAcceptConfig()) {
@@ -222,12 +223,13 @@ Value ApiListener::ConfigDeleteObjectAPIHandler(const MessageOrigin::Ptr& origin
 	}
 
 	/* discard messages if the sender is in a child zone */
+        /* OVERRIDE: allow messages from satellites
 	if (!Zone::GetLocalZone()->IsChildOf(endpoint->GetZone())) {
 		Log(LogWarning, "ApiListener")
 			<< "Discarding 'config update object' message from '"
 			<< origin->FromClient->GetIdentity() << "'.";
 		return Empty;
-	}
+	} */
 
 	/* delete the object */
 	Type::Ptr ptype = Type::GetByName(params->Get("type"));
